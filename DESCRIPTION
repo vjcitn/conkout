@@ -1,0 +1,15 @@
+Package: conkout
+Title: outlier methods with applications in cancer
+Description: Deploy outlier concepts in cancer biostatistics.
+Version: 0.0.0
+Author: Vince Carey
+Suggests: knitr
+Depends: parody
+Imports: shiny, MASS, maftools, beeswarm
+Maintainer: VJ Carey <stvjc@channing.harvard.edu>
+License: Artistic-2.0
+LazyLoad: yes
+LazyData: yes
+biocViews: Cancer, GeneExpression
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
