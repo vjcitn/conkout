@@ -1,0 +1,57 @@
+---
+title: "conkout -- outlier detection with application to cancer multiomics"
+author: "Vincent J. Carey, stvjc at channing.harvard.edu"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{conkout -- outlier detection with application to cancer multiomics}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::pdf_document:
+    toc: yes
+    number_sections: yes
+  BiocStyle::html_document:
+    highlight: pygments
+    number_sections: yes
+    theme: united
+    toc: yes
+---
+
+```{r setup,echo=FALSE,results="hide"}
+suppressPackageStartupMessages({
+suppressMessages({
+library(patelGBMSC)
+})
+})
+```
+
+# Introduction
+
+The outlier concept is ubiquitous in real-world
+data analysis.  Concern with exceptional values
+in scientific observation spans the entire
+history of science.  The literature of statistical
+methods for analyzing data in the presence of
+outliers is extensive and growing.
+
+The outlier concept frequently emerges in the
+definition of methods for the analysis of tumor genomes.
+Two examples are the outlier sums method of
+Tibshirani and Hastie (2007), and the DriverNet
+algorithm of Bashashati et al (2013). ....
+
+There are two primary motivations for this paper.
+First, we describe more formal approaches
+to univariate and
+multivariate outlier identification in tumor 
+expression profiles.  We show that the formal and informal
+approaches lead to different enumerations of
+outlying cases.  
+
+The second motivation for this paper
+is the demonstration of effects of siloing of methods and
+data in cancer genomics.  Siloing persists despite many
+efforts at federation.  This is illustrated through
+detailing the steps of linking of outlying expression
+patterns to mutation and survival profiles.
+
