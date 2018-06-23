@@ -1,0 +1,19 @@
+library(GSEABase)
+dir()
+getGmt(dir()) -> glioSets
+glioSets
+as.list(glioSets)
+lapply(glioSets, force) -> tol
+tol[[1]]
+tol
+tol2 = lapply(tol, geneIds)
+tol2[[1]]
+names(tol2) = sapply(tol, setName)
+str(tol2[1:4])
+names(tol2) = paste(sapply(tol, setName), "(", sapply(tol2,length), ")", sep="")
+str(tol2[1:4])
+glioSets
+details(glioSets)
+glioSets47 = tol2
+save(glioSets47, file="glioSets47.rda", compress="xz")
+savehistory(file="makeGlioSets47.hist.txt")

@@ -2,6 +2,7 @@
 redNgray = function() c(red="#8B0000AA", gray="#D3D3D333")
 
 # you can use mv.calout.detect on subsets of data defined by gene sets
+# genesets = ivygapSE::makeGeneSets()
 
 #' use shiny to explore univariate and multivariate outlier patterns in selected gene sets
 #' @import shiny
@@ -9,20 +10,25 @@ redNgray = function() c(red="#8B0000AA", gray="#D3D3D333")
 #' @importFrom beeswarm beeswarm
 #' @importFrom MASS parcoord
 #' @import maftools
+#' @param genesets a named list of vectors of gene symbols
+#' @examples
+#' if (interactive()) conkApp()
 #' @export
-conkApp = function() {
-genesets = ivygapSE::makeGeneSets()
+conkApp = function( genesets = conkout::glioSets47 ) {
 mutatedGenes = c("default", sort(unique(conkout::tcga_gbm@data$Hugo_Symbol)))
+#gopt = names(genesets)
+#easy = substr(gopt,1,11)
+#names(easy) = gopt
 ui = fluidPage(
  sidebarLayout(
   sidebarPanel(
-   helpText("conkout package outlier exploration, using TCGA-GBM hu133 expression data and a potentially obsolete selection of cBioPortal gene sets"),
+   helpText("conkout package outlier exploration, using TCGA-GBM hu133 expression data and glioblastoma-related gene sets from MSigDb"),
    selectInput("geneset", "geneset", names(genesets), names(genesets)[1]),
    uiOutput("picker"),
    numericInput("bp1", "bipl ax1", 1, min=1, max=10, step=1),
    numericInput("bp2", "bipl ax2", 2, min=2, max=10, step=1), 
 #   selectInput("gene4mut", "gene for oncoprint", choices=mutatedGenes, selected="default"),
-   width=3
+   width=4
    ),
   mainPanel(
    helpText("Tabs: beesOne for univariate, PCA for general princomp, biplot on PC selected as 'bipl ax', oncopl for maftools coOncoplot, which uses PoisonAlien TCGAMutations for GBM"),
@@ -53,6 +59,7 @@ server = function(input, output) {
      curgs = genesets[[input$geneset]]
      okg = intersect(rownames(conkout::gbmu133), curgs)
      texp = t(conkout::gbmu133[okg,])
+     texp = texp[, order(colnames(texp))]
      list(olinds = mv.calout.detect(texp), texp=texp)
     })
   output$curparco = renderPlot({
@@ -64,7 +71,9 @@ server = function(input, output) {
         lwds[curi] = 3
         }
      par(las=2)
-     parcoord(olstuff$texp, col=colsToUse, lwd=lwds)
+     parcoord(olstuff$texp, col=colsToUse, lwd=lwds,
+       main=paste(input$geneset, " (Nmvout=", length(olstuff$olinds$inds), 
+" Nin=", nrow(olstuff$texp)-length(olstuff$olinds$inds), ")", sep=""))
      })
    output$beesOne = renderPlot({
      olstuff = getCurrentOutliers()

@@ -1,7 +1,7 @@
 Package: conkout
 Title: outlier methods with applications in cancer
 Description: Deploy outlier concepts in cancer biostatistics.
-Version: 0.0.0
+Version: 0.0.1
 Author: Vince Carey
 Suggests: knitr
 Depends: parody

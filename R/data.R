@@ -12,3 +12,10 @@
 #' @examples
 #' conkout::gbmu133
 "gbmu133"
+#' MSigDB-based glioblastoma gene sets, 47 in number
+#' @docType data
+#' @format 12042 x 528 matrix
+#' @source imported using getGmt from an MSigDb download
+#' @examples
+#' conkout::glioSets47
+#' "glioSets47"
